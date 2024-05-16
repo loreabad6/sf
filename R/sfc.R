@@ -155,7 +155,11 @@ st_sfc = function(..., crs = NA_crs_, precision = 0.0, check_ring_dir = FALSE, d
 	crs = st_crs(x)
 	dim = if (length(x)) class(x[[1]])[1] else "XY"
 	x = unclass(x)[i] # now a list
-	st_sfc(x, crs = crs, precision = precision, dim = dim)
+	if (!missing(i)) {
+		st_sfc(NextMethod(), crs = crs, precision = precision, dim = dim)
+	} else {
+		st_sfc(x, crs = crs, precision = precision, dim = dim)
+	}
 }
 
 
